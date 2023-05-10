@@ -15,6 +15,6 @@ public class RatingDTO {
 
 	private String genres;
 
-	private String averageRating;
+	private Double averageRating;
 
 }

@@ -65,7 +65,7 @@ public class MovieController {
 	@GetMapping("/genre-movies-with-subtotals")
 	public ResponseEntity<Object> getTotalmovies() {
 		try {
-			List<Map<String, Object>> numUpdated = moviesService.get();
+			List<Map<String, Object>> numUpdated = moviesService.genreMoviesWithSubtotals();
 			return ResponseEntity.ok(numUpdated );
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
