@@ -24,7 +24,7 @@ public class MoviesService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	
+
 
 	@Autowired
 	private MoviesRepositry moviesRepositry;
@@ -69,26 +69,26 @@ public class MoviesService {
 			dto.setTconst(movies.getTconst());
 			dto.setPrimaryTitle(movies.getPrimarytitle());
 			dto.setGenres(movies.getGenres());
-			//			dto.setAverageRating(list.get(i).getAverageRating());
+			dto.setAverageRating(list.get(i).getAveragerating());
 			dtos.add(dto);
 		}
 		return dtos;
 	}
 
-	
-	
+
+
 	public int updateMovieRuntimes() {
-	    String sql = "UPDATE movies " +
-	                 "SET runtimeMinutes = " +
-	                 "    CASE " +
-	                 "        WHEN genres = 'Documentary' THEN runtimeMinutes + 15 " +
-	                 "        WHEN genres = 'Animation' THEN runtimeMinutes + 30 " +
-	                 "        ELSE runtimeMinutes + 45 " +
-	                 "    END";
-	    return jdbcTemplate.update(sql);
+		String sql = "UPDATE movies " +
+				"SET runtimeMinutes = " +
+				"    CASE " +
+				"        WHEN genres = 'Documentary' THEN runtimeMinutes + 15 " +
+				"        WHEN genres = 'Animation' THEN runtimeMinutes + 30 " +
+				"        ELSE runtimeMinutes + 45 " +
+				"    END";
+		return jdbcTemplate.update(sql);
 	}
-	
-	public List<Map<String, Object>> get() {
+
+	public List<Map<String, Object>> genreMoviesWithSubtotals() {
 		String sql = "SELECT * FROM (\n" +
 				"  SELECT m.genres, m.primarytitle, SUM(r.numvotes) AS numVotes\n" +
 				"  FROM movies m\n" +
@@ -110,7 +110,7 @@ public class MoviesService {
 				"ORDER BY genres, numVotes";
 
 		return jdbcTemplate.queryForList(sql);
-	
+
 	}
 
 }
